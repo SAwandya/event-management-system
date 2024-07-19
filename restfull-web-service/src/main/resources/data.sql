@@ -4,4 +4,4 @@ insert into event(date, id, description, location, name) values(current_date(), 
 insert into event(date, id, description, location, name) values(current_date(), 1004 , 'this is forth event', 'colombo', 'event 4')
 insert into event(date, id, description, location, name) values(current_date(), 1005 , 'this is fifth event', 'colombo', 'event 5')
 
-insert into attendee(email, id, name, phone, register_type) values('sachilaawandya@gmai.com', 2001, 'sachila', '0716316264', 'Gold')
+insert into attendee(event_id, email, id, name, phone, register_type) values(1001, 'sachilaawandya@gmai.com', 2001, 'sachila', '0716316264', 'Gold')

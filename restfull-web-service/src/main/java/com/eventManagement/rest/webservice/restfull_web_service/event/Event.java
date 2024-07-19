@@ -35,8 +35,8 @@ public class Event {
 	
 	private String location;
 	
-	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Attendee> attendees = new ArrayList<>();
+	@OneToMany(mappedBy = "event")
+    private List<Attendee> attendees;
 
 	public Event(String name, LocalDate date, String description, String location) {
 		super();
