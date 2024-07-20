@@ -1,23 +1,32 @@
 import React from "react";
 import "../style/eventList.css";
 import useEvents from "../hooks/useEvents";
+import useEventQueryStore from "../store";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const EventList = () => {
-
   const { data, error, isLoading, refetch } = useEvents();
 
+  const navigate = useNavigate();
+  const SetSelectedEvent = useEventQueryStore((s) => s.SetSelectedEvent);
+
   const handleClick = (id) => {
-    navigator("/")
-  }
+    console.log(id);
+    SetSelectedEvent(id);
+    navigate("/eventdetails");
+  };
 
   return (
     <>
-    
       <h1>Upcoming Events</h1>
 
       <ul className="event-list">
         {data?.map((product) => (
-          <li key={product.id} onClick={handleClick} className="event-item">
+          <li
+            key={product.id}
+            onClick={(id) => handleClick(product.id)}
+            className="event-item"
+          >
             <h2 className="event-name">{product.name}</h2>
             <div className="event-details">
               <p className="event-date">Date: {product.date}</p>
@@ -33,6 +42,6 @@ const EventList = () => {
       </ul>
     </>
   );
-}
+};
 
 export default EventList;

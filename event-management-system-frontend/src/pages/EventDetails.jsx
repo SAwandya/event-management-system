@@ -3,8 +3,6 @@ import EventCard from '../components/EventCard';
 
 const EventDetails = () => {
 
-  
-
   return (
     <>
       <EventCard/>
