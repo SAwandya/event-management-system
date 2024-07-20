@@ -5,9 +5,12 @@ import AttendeeRegisterForm from "../pages/AttendeeRegisterForm";
 import AddEventForm from "../pages/AddEventForm";
 import eventService from "../services/eventService";
 import useEventQueryStore from "../store";
+import useEvents from "../hooks/useEvents";
 
 const NavBar = () => {
   const navigate = useNavigate();
+
+  const { refetch } = useEvents();
 
   const handleNavigate = () => {
     navigate("/");
@@ -20,7 +23,7 @@ const NavBar = () => {
       .Add(event)
       .then((res) => {
         console.log(res);
-        SetManualRefetch(true);
+        refetch();
       })
       .catch((err) => {
         console.log(err);

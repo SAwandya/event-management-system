@@ -89,6 +89,7 @@ const EventList = () => {
           .delete(id)
           .then((res) => {
             console.log(res.data);
+            refetch();
           })
           .catch((err) => {
             console.log(err);
