@@ -42,13 +42,18 @@ h1 {
 .event-location {
     margin: 5px 10px 5px 0;
     color: #87ceeb; 
+    font-size: 20px;
+}
+
+.bold-date{
+    font-weight: bold;
 }
 
 .event-buttons {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    margin-left: auto;
+    margin-left: 60px;
 }
 
 .event-buttons button {

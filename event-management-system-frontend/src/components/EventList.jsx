@@ -5,16 +5,20 @@ import useEventQueryStore from "../store";
 import { Navigate, useNavigate } from "react-router-dom";
 import AttendeeRegisterForm from "../pages/AttendeeRegisterForm";
 import attendeeService from "../services/attendeeService";
+import AttendeeUpdateForm from "../pages/EventUpdateForm";
+import EventUpdateForm from "../pages/EventUpdateForm";
+import eventService from "../services/eventService";
 
 const EventList = () => {
   const { data, error, isLoading, refetch } = useEvents();
 
   const navigate = useNavigate();
+
   const SetSelectedEvent = useEventQueryStore((s) => s.SetSelectedEvent);
 
-  // const selectedEvent = useEventQueryStore(s => s.selectedEvent);
-
   const [eventId, setEventId] = useState(null);
+
+  const [event, setEvent] = useState(null);
 
   const handleClick = (id) => {
     SetSelectedEvent(id);
@@ -22,6 +26,8 @@ const EventList = () => {
   };
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isUpdateFormOpen, setIsUpdateFormOpen] = useState(false);
+
   const [attendees, setAttendees] = useState([]);
 
   const handleFormSubmit = (attendee) => {
@@ -33,10 +39,32 @@ const EventList = () => {
       .AttendeePost(attendee, eventId + "/attendee")
       .then((res) => {
         console.log(res.data);
+        refetch()
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleFormUpdate = (event) => {
+
+    console.log(event);
+
+    eventService
+      .Update(eventId, event)
+      .then((res) => {
+        console.log(res);
+        refetch()
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const updateButtonHandle = (newdata) => {
+    setIsUpdateFormOpen(true);
+    setEvent(newdata);
+    setEventId(newdata.id)
   };
 
   const regButtonHandle = (id) => {
@@ -49,20 +77,32 @@ const EventList = () => {
       <h1>Upcoming Events</h1>
 
       <ul className="event-list">
-        {data?.map((event) => (
-          <li key={event.id} className="event-item">
-            <h2 className="event-name" onClick={(id) => handleClick(event.id)}>
-              {event.name}
+        {data?.map((newdata) => (
+          <li key={newdata.id} className="event-item">
+            <h2
+              className="event-name"
+              onClick={(id) => handleClick(newdata.id)}
+            >
+              {newdata.name}
             </h2>
             <div className="event-details">
-              <p className="event-date">Date: {event.date}</p>
-              <p className="event-location">Location: {event.location}</p>
+              <p className="event-date">
+                Date: <span className="bold-date">{newdata.date}</span>
+              </p>
+              <p className="event-location">
+                Location: <span className="bold-date">{newdata.location}</span>
+              </p>
               <div className="event-buttons">
-                <button className="update-btn">Update</button>
+                <button
+                  className="update-btn"
+                  onClick={() => updateButtonHandle(newdata)}
+                >
+                  Update
+                </button>
                 <button className="delete-btn">Delete</button>
                 <button
                   className="register-btn"
-                  onClick={(id) => regButtonHandle(event.id)}
+                  onClick={(id) => regButtonHandle(newdata.id)}
                 >
                   Register
                 </button>
@@ -75,6 +115,13 @@ const EventList = () => {
         <AttendeeRegisterForm
           onClose={() => setIsFormOpen(false)}
           onSubmit={handleFormSubmit}
+        />
+      )}
+      {isUpdateFormOpen && (
+        <EventUpdateForm
+          onClose={() => setIsUpdateFormOpen(false)}
+          onSubmit={handleFormUpdate}
+          event={event}
         />
       )}
     </>
