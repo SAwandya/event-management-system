@@ -2,7 +2,7 @@ Event Management System
 
 Introduction
 
-Event Management System is a web application designed to efficiently manage events. Users can create, 
+Event Management System is a web application designed to efficiently manage events. Users can create,
 update, delete, and view events. Attendees can register for events, and administrators can manage the list of events and attendees.
 
 Features
@@ -25,6 +25,7 @@ Setup and Installation
 -MySQL
 
 Frontend Setup
+
 1. Clone the repository
 
 https://github.com/SAwandya/event-management-system.git
@@ -42,6 +43,7 @@ npm install
 npm run dev
 
 Backend Setup
+
 1. Navigate to the backend directory
 
 cd event-management-system/restfull-web-service
@@ -55,19 +57,20 @@ mvn clean install
 mvn spring-boot:run
 
 Usage
+
 1. Open your browser and navigate to http://127.0.0.1:5173/ to access the frontend.
 2. Use the interface to create and manage events and attendees.
 
 API Endpoints
 
 Events
-GET /events - Retrieve all events
-POST /event - Create a new event
-PUT /events/{id} - Update an existing event
-DELETE /events/{id} - Delete an event
+-GET /events - Retrieve all events
+-POST /event - Create a new event
+-PUT /events/{id} - Update an existing event
+-DELETE /events/{id} - Delete an event
 
 Attendees
-POST /event/{id}/attendee - Register an attendee for an event
+-POST /event/{id}/attendee - Register an attendee for an event
 
 Contact
-Created by Sachila awandya manamperi - feel free to contact me!
+-Created by Sachila awandya manamperi - feel free to contact me!

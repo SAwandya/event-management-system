@@ -38,7 +38,7 @@ const NavBar = () => {
     <>
       <div>
         <nav class="navbar">
-          <div class="navbar-brand">Event List</div>
+          <div class="navbar-brand">EMS</div>
           <button class="navbar-toggle" id="navbar-toggle">
             &#9776;
           </button>
