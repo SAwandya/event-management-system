@@ -1,7 +1,13 @@
 import React from "react";
 import "../style/eventCard.css";
+import useEvent from "../hooks/useEvent";
 
 const EventCard = () => {
+
+  const { data } = useEvent(1001);
+
+  console.log(data);
+
   return (
     <div class="card">
       <h2 class="event-name">Event Name</h2>

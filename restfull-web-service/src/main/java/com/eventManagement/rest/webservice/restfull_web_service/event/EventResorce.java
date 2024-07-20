@@ -38,6 +38,12 @@ public class EventResorce {
 		return eventRepository.findAll();
 	}
 	
+	@GetMapping(path="/events/{id}")
+	public Optional<Event> retriveEvent(@PathVariable int id){
+		
+		return eventRepository.findById(id);
+	}
+	
 	@GetMapping(path="/events/{id}/attendees")
 	public List<Attendee> retriveAllAttendeesForEvent(@PathVariable int id){
 		

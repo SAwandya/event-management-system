@@ -2,9 +2,6 @@ import React from "react";
 import "../style/navBar.css";
 
 const NavBar = () => {
-  const navbarfun = () => {
-    
-  };
 
   return (
     <>
@@ -14,7 +11,6 @@ const NavBar = () => {
           <button
             class="navbar-toggle"
             id="navbar-toggle"
-            onClick={navbarfun()}
           >
             &#9776;
           </button>

@@ -1,12 +1,14 @@
+
 import { useQuery } from "@tanstack/react-query";
 import APIClient from "../services/api-client";
 
 const apiClient = new APIClient("/events");
 
-const useEvent = (id) =>
+const useEvents = () =>
   useQuery({
-    queryKey: ["events", id],
-    queryFn: () => apiClient.get(id),
+    queryKey: ["events"],
+    queryFn: apiClient.getAll,
+    staleTime: 24 * 60 * 60 * 1000, //24h
   });
 
-export default useEvent;
+export default useEvents;

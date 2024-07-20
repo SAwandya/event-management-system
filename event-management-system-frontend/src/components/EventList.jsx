@@ -1,18 +1,23 @@
 import React from "react";
 import "../style/eventList.css";
-import useEvents from "../hooks/useEvent";
+import useEvents from "../hooks/useEvents";
 
 const EventList = () => {
 
   const { data, error, isLoading, refetch } = useEvents();
 
+  const handleClick = (id) => {
+    navigator("/")
+  }
+
   return (
     <>
+    
       <h1>Upcoming Events</h1>
 
       <ul className="event-list">
         {data?.map((product) => (
-          <li key={product.id} className="event-item">
+          <li key={product.id} onClick={handleClick} className="event-item">
             <h2 className="event-name">{product.name}</h2>
             <div className="event-details">
               <p className="event-date">Date: {product.date}</p>
