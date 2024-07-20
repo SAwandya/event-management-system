@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/eventList.css";
 import useEvents from "../hooks/useEvents";
 import useEventQueryStore from "../store";
 import { Navigate, useNavigate } from "react-router-dom";
+import AttendeeRegisterForm from "../pages/AttendeeRegisterForm";
 
 const EventList = () => {
   const { data, error, isLoading, refetch } = useEvents();
@@ -13,7 +14,14 @@ const EventList = () => {
   const handleClick = (id) => {
     console.log(id);
     SetSelectedEvent(id);
-    navigate("/eventdetails");
+    // navigate("/eventdetails");
+  };
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [attendees, setAttendees] = useState([]);
+
+  const handleFormSubmit = (attendee) => {
+    setAttendees([...attendees, attendee]);
   };
 
   return (
@@ -34,12 +42,23 @@ const EventList = () => {
               <div className="event-buttons">
                 <button className="update-btn">Update</button>
                 <button className="delete-btn">Delete</button>
-                <button className="register-btn">Register</button>
+                <button
+                  className="register-btn"
+                  onClick={() => setIsFormOpen(true)}
+                >
+                  Register
+                </button>
               </div>
             </div>
           </li>
         ))}
       </ul>
+      {isFormOpen && (
+        <AttendeeRegisterForm
+          onClose={() => setIsFormOpen(false)}
+          onSubmit={handleFormSubmit}
+        />
+      )}
     </>
   );
 };
