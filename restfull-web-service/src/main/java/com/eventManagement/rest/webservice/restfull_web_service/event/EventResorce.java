@@ -69,13 +69,13 @@ public class EventResorce {
 	}
 	
 	@PostMapping("/event/{id}/attendee")
-	public Attendee registerAttendee(@RequestBody Attendee attendee, @PathVariable int id) {
+	public Attendee registerAttendee(@RequestBody Attendee attendee, @PathVariable int id){
 
 	    Optional<Event> optionalEvent = eventRepository.findById(id);
 
-//	    if (!optionalEvent.isPresent()) {
-//	        throw new ResourceNotFoundException("Event not found with id " + id);
-//	    }
+	    if (!optionalEvent.isPresent()) {
+	        throw new ResourceNotFoundException("Event not found with id " + id);
+	    }
 
 	    Event event = optionalEvent.get();
 
@@ -89,12 +89,12 @@ public class EventResorce {
 	}
 
 	@PutMapping("/event/{id}")
-	public Event updateEvent(@PathVariable int id, @RequestBody Event eventDetails) {
+	public ResponseEntity<Event> updateEvent(@PathVariable int id, @RequestBody Event eventDetails) {
 	    Optional<Event> optionalEvent = eventRepository.findById(id);
 	    
-//	    if (!optionalEvent.isPresent()) {
-//	        throw new ResourceNotFoundException("Event not found with id " + id);
-//	    }
+	    if (!optionalEvent.isPresent()) {
+	        throw new ResourceNotFoundException("Event not found with id " + id);
+	    }
 
 	    Event event = optionalEvent.get();
 	    event.setName(eventDetails.getName());
@@ -103,9 +103,9 @@ public class EventResorce {
 	    event.setLocation(eventDetails.getLocation());
 
 	    Event updatedEvent = eventRepository.save(event);
-//	    return ResponseEntity.ok(updatedEvent);
 	    
-	    return updatedEvent;
+	    return ResponseEntity.ok(updatedEvent);
+	    
 	}
 
 }
