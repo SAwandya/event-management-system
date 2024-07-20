@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style/navBar.css";
 import { Link, useNavigate } from "react-router-dom";
+import AttendeeRegisterForm from "../pages/AttendeeRegisterForm";
+import AddEventForm from "../pages/AddEventForm";
+import eventService from "../services/eventService";
+import useEventQueryStore from "../store";
 
 const NavBar = () => {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/')
-  }
+    navigate("/");
+  };
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const handleFormSubmit = (event) => {
+    eventService
+      .Add(event)
+      .then((res) => {
+        console.log(res);
+        SetManualRefetch(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const addEventBtnHandle = () => {
+    setIsFormOpen(true);
+  };
 
   return (
     <>
@@ -25,15 +46,25 @@ const NavBar = () => {
             <a href="#about" class="nav-link">
               About
             </a>
-            <a href="#events" class="nav-link">
-              Events
-            </a>
             <a href="#contact" class="nav-link">
               Contact
+            </a>
+            <a
+              href="#events"
+              class="nav-link addbtn"
+              onClick={() => addEventBtnHandle()}
+            >
+              Add Event
             </a>
           </div>
         </nav>
       </div>
+      {isFormOpen && (
+        <AddEventForm
+          onClose={() => setIsFormOpen(false)}
+          onSubmit={handleFormSubmit}
+        />
+      )}
     </>
   );
 };

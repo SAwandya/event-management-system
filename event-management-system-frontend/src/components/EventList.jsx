@@ -8,6 +8,9 @@ import attendeeService from "../services/attendeeService";
 import AttendeeUpdateForm from "../pages/EventUpdateForm";
 import EventUpdateForm from "../pages/EventUpdateForm";
 import eventService from "../services/eventService";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 const EventList = () => {
   const { data, error, isLoading, refetch } = useEvents();
@@ -39,32 +42,65 @@ const EventList = () => {
       .AttendeePost(attendee, eventId + "/attendee")
       .then((res) => {
         console.log(res.data);
-        refetch()
+        refetch();
+        toast.success("Successfully registered");
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Error");
       });
   };
 
   const handleFormUpdate = (event) => {
-
     console.log(event);
 
     eventService
       .Update(eventId, event)
       .then((res) => {
         console.log(res);
-        refetch()
+        refetch();
+        toast.success("Successfully Updated");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const handleDelete = (id) => {
+    console.log(id);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+
+        eventService
+          .delete(id)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
+
   const updateButtonHandle = (newdata) => {
     setIsUpdateFormOpen(true);
     setEvent(newdata);
-    setEventId(newdata.id)
+    setEventId(newdata.id);
   };
 
   const regButtonHandle = (id) => {
@@ -75,7 +111,7 @@ const EventList = () => {
   return (
     <>
       <h1>Upcoming Events</h1>
-
+      <ToastContainer />
       <ul className="event-list">
         {data?.map((newdata) => (
           <li key={newdata.id} className="event-item">
@@ -99,7 +135,12 @@ const EventList = () => {
                 >
                   Update
                 </button>
-                <button className="delete-btn">Delete</button>
+                <button
+                  className="delete-btn"
+                  onClick={(id) => handleDelete(newdata.id)}
+                >
+                  Delete
+                </button>
                 <button
                   className="register-btn"
                   onClick={(id) => regButtonHandle(newdata.id)}

@@ -62,7 +62,7 @@ public class EventResorce {
 		
 	}
 	
-	@DeleteMapping("/events/{id}")
+	@DeleteMapping("/event/{id}")
 	public void deleteEvent(@PathVariable int id) {
 		
 		eventRepository.deleteById(id);
