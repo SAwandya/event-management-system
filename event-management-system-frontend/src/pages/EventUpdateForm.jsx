@@ -60,7 +60,9 @@ const EventUpdateForm = ({ onClose, onSubmit, event }) => {
             />
           </label>
 
-          <button type="submit">Update</button>
+          <button type="submit" className="submit-btn">
+            Update
+          </button>
         </form>
       </div>
     </div>

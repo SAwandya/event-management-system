@@ -116,12 +116,7 @@ const EventList = () => {
       <ul className="event-list">
         {data?.map((newdata) => (
           <li key={newdata.id} className="event-item">
-            <h2
-              className="event-name"
-              onClick={(id) => handleClick(newdata.id)}
-            >
-              {newdata.name}
-            </h2>
+            <h2 className="event-name">{newdata.name}</h2>
             <div className="event-details">
               <p className="event-date">
                 Date: <span className="bold-date">{newdata.date}</span>
@@ -147,6 +142,12 @@ const EventList = () => {
                   onClick={(id) => regButtonHandle(newdata.id)}
                 >
                   Register
+                </button>
+                <button
+                  className="register-btn"
+                  onClick={(id) => handleClick(newdata.id)}
+                >
+                  more
                 </button>
               </div>
             </div>
