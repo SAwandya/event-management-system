@@ -1,95 +1,30 @@
 import React from "react";
 import "../style/eventList.css";
+import useEvents from "../hooks/useEvent";
 
-function EventList() {
+const EventList = () => {
+
+  const { data, error, isLoading, refetch } = useEvents();
+
   return (
     <>
       <h1>Upcoming Events</h1>
-      <ul class="event-list">
-        <li class="event-item">
-          <h2 class="event-name">Event 1</h2>
-          <div class="event-details">
-            <p class="event-date">Date: July 20, 2024</p>
-            <p class="event-location">Location: New York</p>
-            <div class="event-buttons">
-              <button class="update-btn">Update</button>
-              <button class="delete-btn">Delete</button>
-              <button class="register-btn">Register</button>
+
+      <ul className="event-list">
+        {data?.map((product) => (
+          <li key={product.id} className="event-item">
+            <h2 className="event-name">{product.name}</h2>
+            <div className="event-details">
+              <p className="event-date">Date: {product.date}</p>
+              <p className="event-location">Location: {product.location}</p>
+              <div className="event-buttons">
+                <button className="update-btn">Update</button>
+                <button className="delete-btn">Delete</button>
+                <button className="register-btn">Register</button>
+              </div>
             </div>
-          </div>
-        </li>
-        <li class="event-item">
-          <h2 class="event-name">Event 2</h2>
-          <div class="event-details">
-            <p class="event-date">Date: August 15, 2024</p>
-            <p class="event-location">Location: Los Angeles</p>
-            <div class="event-buttons">
-              <button class="update-btn">Update</button>
-              <button class="delete-btn">Delete</button>
-              <button class="register-btn">Register</button>
-            </div>
-          </div>
-        </li>
-        <li class="event-item">
-          <h2 class="event-name">Event 3</h2>
-          <div class="event-details">
-            <p class="event-date">Date: September 10, 2024</p>
-            <p class="event-location">Location: Chicago</p>
-            <div class="event-buttons">
-              <button class="update-btn">Update</button>
-              <button class="delete-btn">Delete</button>
-              <button class="register-btn">Register</button>
-            </div>
-          </div>
-        </li>
-        <li class="event-item">
-          <h2 class="event-name">Event 3</h2>
-          <div class="event-details">
-            <p class="event-date">Date: September 10, 2024</p>
-            <p class="event-location">Location: Chicago</p>
-            <div class="event-buttons">
-              <button class="update-btn">Update</button>
-              <button class="delete-btn">Delete</button>
-              <button class="register-btn">Register</button>
-            </div>
-          </div>
-        </li>
-        <li class="event-item">
-          <h2 class="event-name">Event 3</h2>
-          <div class="event-details">
-            <p class="event-date">Date: September 10, 2024</p>
-            <p class="event-location">Location: Chicago</p>
-            <div class="event-buttons">
-              <button class="update-btn">Update</button>
-              <button class="delete-btn">Delete</button>
-              <button class="register-btn">Register</button>
-            </div>
-          </div>
-        </li>
-        {/* <li class="event-item">
-          <h2 class="event-name">Event 3</h2>
-          <div class="event-details">
-            <p class="event-date">Date: September 10, 2024</p>
-            <p class="event-location">Location: Chicago</p>
-            <div class="event-buttons">
-              <button class="update-btn">Update</button>
-              <button class="delete-btn">Delete</button>
-              <button class="register-btn">Register</button>
-            </div>
-          </div>
-        </li>
-        <li class="event-item">
-          <h2 class="event-name">Event 3</h2>
-          <div class="event-details">
-            <p class="event-date">Date: September 10, 2024</p>
-            <p class="event-location">Location: Chicago</p>
-            <div class="event-buttons">
-              <button class="update-btn">Update</button>
-              <button class="delete-btn">Delete</button>
-              <button class="register-btn">Register</button>
-            </div>
-          </div>
-        </li> */}
+          </li>
+        ))}
       </ul>
     </>
   );

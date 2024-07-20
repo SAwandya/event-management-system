@@ -34,7 +34,7 @@ public class Attendee {
 	private String registerType;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JsonIgnore
     private Event event;
 	
 	public Attendee(String name, String email, String phone, String registerType) {

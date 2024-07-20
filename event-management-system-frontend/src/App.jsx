@@ -2,17 +2,15 @@ import './App.css'
 import EventCard from './components/EventCard'
 import EventList from './components/EventList'
 import NavBar from './components/NavBar'
+import { RouterProvider } from "react-router-dom";
+
 
 
 function App() {
 
   return (
     <>
-      <div>
-        {" "}
-        <NavBar />
-        <EventCard/>
-      </div>
+      <RouterProvider router={router} />
     </>
   );
 }
